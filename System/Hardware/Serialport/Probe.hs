@@ -11,11 +11,14 @@ import System.Posix.Files
 -- Each pair consists of the device filename and a description string.
 probeSerialPorts :: IO [(FilePath, String)]
 probeSerialPorts = do
-    let 
-    links <- filterM (\f -> isSymbolicLink <$> getSymbolicLinkStatus (dir </> f))
-                       =<< getDirectoryContents dir
-    forM links $ \f -> (,) <$> readSym f
-                           <*> pure f
+    exists <- doesDirectoryExist dir
+    if exists then do
+        links <- filterM (\f -> isSymbolicLink <$> getSymbolicLinkStatus (dir </> f))
+                           =<< getDirectoryContents dir
+        forM links $ \f -> (,) <$> readSym f
+                               <*> pure f
+      else
+        return []
   where
     dir = "/dev/serial/by-id"
     readSym f = do
