@@ -2,9 +2,9 @@ module System.Hardware.Serialport.Probe where
 
 import Control.Applicative
 import Control.Monad
-import System.Directory
+import System.Directory (doesDirectoryExist, getDirectoryContents, canonicalizePath)
 import System.FilePath
-import System.Posix.Files
+import System.Posix.Files (isSymbolicLink, getSymbolicLinkStatus, readSymbolicLink)
 
 -- | Probe the system's serial ports.
 --

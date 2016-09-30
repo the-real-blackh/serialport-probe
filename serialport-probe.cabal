@@ -1,5 +1,5 @@
 name:                serialport-probe
-version:             0.1.0.0
+version:             0.1.1.0
 synopsis:            Probe the operating system's serial ports (linux so far)
 description:         
 license:             BSD3
